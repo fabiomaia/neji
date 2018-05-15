@@ -55,6 +55,8 @@ public class ModelConfig implements Serializable {
     private boolean ngrams;
     private boolean suffix;
     private boolean prefix;
+    private boolean enumsuffix;
+    private boolean enumprefix;
     private boolean greek;
     private boolean roman;
     private boolean morphology;
@@ -79,7 +81,7 @@ public class ModelConfig implements Serializable {
 
     public ModelConfig(boolean token, boolean stem, boolean lemma, boolean pos,
                        boolean chunk, boolean nlp, boolean capitalization, boolean counting,
-                       boolean symbols, boolean ngrams, boolean suffix, boolean prefix,
+                       boolean symbols, boolean ngrams, boolean suffix, boolean prefix, boolean enumsuffix, boolean enumprefix,
                        boolean greek, boolean roman, boolean morphology, boolean prge,
                        boolean concepts, boolean verbs, boolean window, boolean conjunctions,
                        int order, Parsing parsingDirection, List<String> entity) {
@@ -95,6 +97,8 @@ public class ModelConfig implements Serializable {
         this.ngrams = ngrams;
         this.suffix = suffix;
         this.prefix = prefix;
+        this.enumsuffix = enumsuffix;
+        this.enumprefix = enumprefix;
         this.greek = greek;
         this.roman = roman;
         this.morphology = morphology;
@@ -158,6 +162,14 @@ public class ModelConfig implements Serializable {
 
             output.write("prefix=".getBytes());
             output.write((prefix ? "1" : "0").getBytes());
+            output.write("\n".getBytes());
+
+            output.write("enumsuffix=".getBytes());
+            output.write((enumsuffix ? "1" : "0").getBytes());
+            output.write("\n".getBytes());
+
+            output.write("enumprefix=".getBytes());
+            output.write((enumprefix ? "1" : "0").getBytes());
             output.write("\n".getBytes());
 
             output.write("morphology=".getBytes());
@@ -234,6 +246,8 @@ public class ModelConfig implements Serializable {
                 ngrams = String2Boolean(properties.getProperty("ngrams"));
                 suffix = String2Boolean(properties.getProperty("suffix"));
                 prefix = String2Boolean(properties.getProperty("prefix"));
+                enumsuffix = String2Boolean(properties.getProperty("enumsuffix"));
+                enumprefix = String2Boolean(properties.getProperty("enumprefix"));
                 greek = String2Boolean(properties.getProperty("greek"));
                 roman = String2Boolean(properties.getProperty("roman"));
                 morphology = String2Boolean(properties.getProperty("morphology"));
@@ -272,6 +286,8 @@ public class ModelConfig implements Serializable {
         logger.info("NGrams: {}", ngrams);
         logger.info("Suffix: {}", suffix);
         logger.info("Prefix: {}", prefix);
+        logger.info("EnumSuffix: {}", enumsuffix);
+        logger.info("EnumPrefix: {}", enumprefix);
         logger.info("Greek: {}", greek);
         logger.info("Roman: {}", roman);
         logger.info("Word Shape: {}", morphology);
@@ -407,6 +423,14 @@ public class ModelConfig implements Serializable {
         this.prefix = prefix;
     }
 
+    public boolean isEnumPrefix() {
+        return enumprefix;
+    }
+
+    public void setEnumPrefix(boolean enumprefix) {
+        this.enumprefix = enumprefix;
+    }
+
     public boolean isPrge() {
         return prge;
     }
@@ -437,6 +461,14 @@ public class ModelConfig implements Serializable {
 
     public void setSuffix(boolean suffix) {
         this.suffix = suffix;
+    }
+
+    public boolean isEnumSuffix() {
+        return enumsuffix;
+    }
+
+    public void setEnumSuffix(boolean enumsuffix) {
+        this.enumsuffix = enumsuffix;
     }
 
     public boolean isSymbols() {
@@ -539,7 +571,15 @@ public class ModelConfig implements Serializable {
         sb.append("prefix=");
         sb.append(prefix);
         sb.append("\n");
-        
+
+        sb.append("enumsuffix=");
+        sb.append(enumsuffix);
+        sb.append("\n");
+
+        sb.append("enumprefix=");
+        sb.append(enumprefix);
+        sb.append("\n");
+
         sb.append("morphology=");
         sb.append(morphology);
         sb.append("\n");
