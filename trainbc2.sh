@@ -5,5 +5,5 @@
 			   -a chemdner/training.annotations.bc2 \
 			   -f chemdner/model.config \
 			   -m enumerated_suffix_prefix.model \
-			   -o chemdner \
+			   -o chemdner/ \
                -t 4
