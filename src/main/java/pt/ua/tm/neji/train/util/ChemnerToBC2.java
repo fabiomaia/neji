@@ -80,7 +80,7 @@ public class ChemnerToBC2 {
             String title = parts[1];
             String abs = parts[2];
 
-            pwt.println(id + "|" + title + "|" + abs);
+            pwt.println(id + "|" + title + " " + abs);
         }
 
         pwt.close();
