@@ -188,12 +188,12 @@ public class CRFModel extends CRFBase {
             }
 
             if (config.isEnumSuffix()) {
-                String enumSuffixRegex = "\\B(foo|bar|baz)\\b";
+                String enumSuffixRegex = "\\B(foo|bar|baz)-?\\b";
                 pipe.add(new RegexMatches("ENUMSUFFIX=", Pattern.compile(enumSuffixRegex, Pattern.CASE_INSENSITIVE)));
             }
 
             if (config.isEnumPrefix()) {
-                String enumPrefixRegex = "\\b(foo|bar|baz)\\B";
+                String enumPrefixRegex = "\\b-?(foo|bar|baz)\\B";
                 pipe.add(new RegexMatches("ENUMPREFIX=", Pattern.compile(enumPrefixRegex, Pattern.CASE_INSENSITIVE)));
             }
 
