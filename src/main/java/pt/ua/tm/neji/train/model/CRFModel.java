@@ -39,7 +39,10 @@ import cc.mallet.pipe.tsf.TrieLexiconMembership;
 import cc.mallet.types.InstanceList;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Pattern;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -188,12 +191,16 @@ public class CRFModel extends CRFBase {
             }
 
             if (config.isEnumSuffix()) {
-                String enumSuffixRegex = "\\B(foo|bar|baz)-?\\b";
+                List<String> suffixes = Files.readAllLines(Paths.get("chemdner/suffixes.preprocessed.txt"));
+                String innerRegex = String.join("|", suffixes);
+                String enumSuffixRegex = "\\B(" + innerRegex + ")-?\\b";
                 pipe.add(new RegexMatches("ENUMSUFFIX=", Pattern.compile(enumSuffixRegex, Pattern.CASE_INSENSITIVE)));
             }
 
             if (config.isEnumPrefix()) {
-                String enumPrefixRegex = "\\b-?(foo|bar|baz)\\B";
+                List<String> prefixes = Files.readAllLines(Paths.get("chemdner/prefixes.preprocessed.txt"));
+                String innerRegex = String.join("|", prefixes);
+                String enumPrefixRegex = "\\b-?(" + innerRegex + ")\\B";
                 pipe.add(new RegexMatches("ENUMPREFIX=", Pattern.compile(enumPrefixRegex, Pattern.CASE_INSENSITIVE)));
             }
 
