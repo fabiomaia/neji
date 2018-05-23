@@ -44,6 +44,8 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pt.ua.tm.neji.core.Constants.Parsing;
@@ -191,16 +193,28 @@ public class CRFModel extends CRFBase {
             }
 
             if (config.isEnumSuffix()) {
-                List<String> suffixes = Files.readAllLines(Paths.get("chemdner/suffixes.preprocessed.txt"));
+                // Obtain list of suffixes
+                List<String> suffixes = Files.readAllLines(Paths.get("chemdner/suffixes.txt"));
+
+                // Escape characters with regex meaning
+                suffixes = suffixes.stream().map(s -> s.replace("-", "\\-")).collect(Collectors.toList());
+
+                // Build regex
                 String innerRegex = String.join("|", suffixes);
-                String enumSuffixRegex = "\\B(" + innerRegex + ")-?\\b";
+                String enumSuffixRegex = "\\w+(" + innerRegex + ")\\b";
                 pipe.add(new RegexMatches("ENUMSUFFIX=", Pattern.compile(enumSuffixRegex, Pattern.CASE_INSENSITIVE)));
             }
 
             if (config.isEnumPrefix()) {
-                List<String> prefixes = Files.readAllLines(Paths.get("chemdner/prefixes.preprocessed.txt"));
+                // Obtain list of suffixes
+                List<String> prefixes = Files.readAllLines(Paths.get("chemdner/prefixes.txt"));
+
+                // Escape characters with regex meaning
+                prefixes = prefixes.stream().map(s -> s.replace("-", "\\-")).collect(Collectors.toList());
+
+                // Build regex
                 String innerRegex = String.join("|", prefixes);
-                String enumPrefixRegex = "\\b-?(" + innerRegex + ")\\B";
+                String enumPrefixRegex = "\\b(" + innerRegex + ")\\w+";
                 pipe.add(new RegexMatches("ENUMPREFIX=", Pattern.compile(enumPrefixRegex, Pattern.CASE_INSENSITIVE)));
             }
 
