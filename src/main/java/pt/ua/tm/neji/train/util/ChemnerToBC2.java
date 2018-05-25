@@ -89,13 +89,14 @@ public class ChemnerToBC2 {
     }
 
     public static void main(String[] args) throws IOException {
-        String annotationsIn = "/home/fabio/Code/neji/chemdner/training.annotations.txt";
-        String annotationsOut = "/home/fabio/Code/neji/chemdner/training.annotations.bc2";
-
-        String abstractsIn = "/home/fabio/Code/neji/chemdner/training.abstracts.txt";
-        String abstractsOut = "/home/fabio/Code/neji/chemdner/training.abstracts.bc2";
-
-        convertAnnotations(annotationsIn, annotationsOut);
+        String abstractsIn = args[0];
+        String abstractsOut = args[0].replace(".txt", ".bc2");
         convertAbstracts(abstractsIn, abstractsOut);
+
+        if (args.length == 2) {
+            String annotationsIn = args[1];
+            String annotationsOut = args[1].replace(".txt", ".bc2");
+            convertAnnotations(annotationsIn, annotationsOut);
+        }
     }
 }

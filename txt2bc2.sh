@@ -4,4 +4,5 @@ MEMORY=6G
 JAVA_COMMAND="java -Xmx$MEMORY -Dfile.encoding=UTF-8 -classpath $cp"
 CLASS=pt.ua.tm.neji.train.util.ChemnerToBC2
 
-$JAVA_COMMAND $CLASS $*
+$JAVA_COMMAND $CLASS ./chemdner/training.abstracts.txt ./chemdner/training.annotations.txt
+$JAVA_COMMAND $CLASS ./chemdner/development.abstracts.txt
