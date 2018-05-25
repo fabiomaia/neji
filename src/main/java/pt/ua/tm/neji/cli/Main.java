@@ -264,7 +264,7 @@ public class Main {
             folderCorpusIn = commandLine.getOptionValue('i');
             File test = new File(folderCorpusIn);
             if (!test.isDirectory() || !test.canRead()) {
-                logger.error("The specified path is not a folder or is not readable.");
+                logger.error("The specified input path is not a folder or is not readable.");
                 return;
             }
             folderCorpusIn = test.getAbsolutePath();
@@ -294,7 +294,7 @@ public class Main {
             folderCorpusOut = commandLine.getOptionValue('o');
             File test = new File(folderCorpusOut);
             if (!test.isDirectory() || !test.canWrite()) {
-                logger.error("The specified path is not a folder or is not writable.");
+                logger.error("The specified output path is not a folder or is not writable.");
                 return;
             }
             folderCorpusOut = test.getAbsolutePath();
