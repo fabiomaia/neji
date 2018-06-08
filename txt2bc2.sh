@@ -1,8 +1,0 @@
-#!/bin/bash
-cp=target/neji-2.0.2-jar-with-dependencies.jar:$CLASSPATH
-MEMORY=6G
-JAVA_COMMAND="java -Xmx$MEMORY -Dfile.encoding=UTF-8 -classpath $cp"
-CLASS=pt.ua.tm.neji.train.util.ChemnerToBC2
-
-$JAVA_COMMAND $CLASS ./chemdner/training.abstracts.txt ./chemdner/training.annotations.txt
-$JAVA_COMMAND $CLASS ./chemdner/development.abstracts.txt
