@@ -46,6 +46,7 @@ import java.util.List;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pt.ua.tm.neji.core.Constants.Parsing;
@@ -194,7 +195,8 @@ public class CRFModel extends CRFBase {
 
             if (config.isEnumSuffix()) {
                 // Obtain list of suffixes
-                List<String> suffixes = Files.readAllLines(Paths.get("chemdner/suffixes.txt"));
+                List<String> suffixes = IOUtils.readLines(Resources.getResource("suffixes"), "UTF-8");
+
 
                 // Escape characters with regex meaning
                 suffixes = suffixes.stream().map(s -> s.replace("-", "\\-")).collect(Collectors.toList());
@@ -207,7 +209,7 @@ public class CRFModel extends CRFBase {
 
             if (config.isEnumPrefix()) {
                 // Obtain list of suffixes
-                List<String> prefixes = Files.readAllLines(Paths.get("chemdner/prefixes.txt"));
+                List<String> prefixes = IOUtils.readLines(Resources.getResource("prefixes"), "UTF-8");
 
                 // Escape characters with regex meaning
                 prefixes = prefixes.stream().map(s -> s.replace("-", "\\-")).collect(Collectors.toList());
