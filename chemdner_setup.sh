@@ -12,7 +12,7 @@ $JAVA_COMMAND $CLASS ./chemdner/development.abstracts.txt
 echo "Splitting BC2 into multiple RAW files..."
 rm -rf ./chemdner/annotate/in/
 mkdir -p ./chemdner/annotate/in/
-while IFS="|" read -r field1 field2; do
+while IFS=" " read -r field1 field2; do
     echo $field1
     echo $field2 > ./chemdner/annotate/in/"$field1".txt
 done < ./chemdner/development.abstracts.bc2
