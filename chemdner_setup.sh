@@ -1,18 +1,29 @@
 #!/bin/bash
-cp=target/neji-2.0.2-jar-with-dependencies.jar:$CLASSPATH
-MEMORY=6G
-JAVA_COMMAND="java -Xmx$MEMORY -Dfile.encoding=UTF-8 -classpath $cp"
-CLASS=pt.ua.tm.neji.train.util.ChemnerToBC2
 
-echo "Converting from BIOC to BC2..."
-rm ./chemdner/*.bc2
-$JAVA_COMMAND $CLASS ./chemdner/training.abstracts.txt ./chemdner/training.annotations.txt
-$JAVA_COMMAND $CLASS ./chemdner/development.abstracts.txt
+########################################################################
 
-echo "Splitting BC2 into multiple RAW files..."
-rm -rf ./chemdner/annotate/in/
-mkdir -p ./chemdner/annotate/in/
-while IFS=" " read -r field1 field2; do
+echo "Converting training.abstracts from TSV to BC2..." && sleep 1
+rm "./chemdner/training.abstracts.bc2"
+while IFS=$'\t' read -r field1 field2 field3; do
     echo $field1
-    echo $field2 > ./chemdner/annotate/in/"$field1".txt
-done < ./chemdner/development.abstracts.bc2
+    echo -e "$field1 $field2 $field3" >> "./chemdner/training.abstracts.bc2"
+done < ./chemdner/training.abstracts.txt
+
+########################################################################
+
+# TODO: what to do with other fields?
+echo "Converting training.annotations from TSV to BC2..." && sleep 1
+rm "./chemdner/training.annotations.bc2"
+while IFS=$'\t' read -r field1 field2 field3 field4 field5 field6; do
+    echo $field1
+    echo -e "$field1|$field3 $field4|$field5" >> "./chemdner/training.annotations.bc2"
+done < ./chemdner/training.annotations.txt
+
+########################################################################
+
+echo "Splitting development.abstracts from TSV to multiple RAW files..." && sleep 1
+rm -rf "./chemdner/annotate/in/" && mkdir -p "./chemdner/annotate/in/"
+while IFS=$'\t' read -r field1 field2 field3; do
+    echo $field1
+    echo -e "$field2\n$field3" > "./chemdner/annotate/in/$field1.txt"
+done < ./chemdner/development.abstracts.txt
