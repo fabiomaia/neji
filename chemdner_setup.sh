@@ -12,7 +12,6 @@ done < ./chemdner/training.abstracts.txt
 
 ########################################################################
 
-# TODO: what to do with other fields?
 echo "Converting training.annotations from TSV to BC2..." && sleep 1
 rm "./chemdner/training.annotations.bc2"
 while IFS=$'\t' read -r field1 field2 field3 field4 field5 field6; do
@@ -26,6 +25,6 @@ echo "Splitting development.abstracts from TSV to multiple RAW files..." && slee
 rm -rf "./chemdner/annotate/in/" && mkdir -p "./chemdner/annotate/in/"
 while IFS=$'\t' read -r field1 field2 field3; do
     echo $field1
-    echo -e "$field2" > ./chemdner/annotate/in/"$field1"T.txt
-    echo -e "$field3" > ./chemdner/annotate/in/"$field1"A.txt
+    echo -e "$field2" > "./chemdner/annotate/in/"$field1"T.txt"
+    echo -e "$field3" > "./chemdner/annotate/in/"$field1"A.txt"
 done < ./chemdner/development.abstracts.txt
