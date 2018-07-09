@@ -28,3 +28,12 @@ while IFS=$'\t' read -r field1 field2 field3; do
     echo -e "$field2" > "./chemdner/annotate/in/"$field1"T.txt"
     echo -e "$field3" > "./chemdner/annotate/in/"$field1"A.txt"
 done < ./chemdner/development.abstracts.txt
+
+########################################################################
+
+echo "Converting development.annotations into predictions..." && sleep 1
+rm "./chemdner/development.predictions.txt"
+while IFS=$'\t' read -r field1 field2 field3 field4 field5 field6; do
+    echo $field1
+    echo -e "$field1\t$field2:$field3:$field4" >> "./chemdner/development.predictions.txt"
+done < ./chemdner/development.annotations.txt
