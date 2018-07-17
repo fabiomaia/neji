@@ -2,7 +2,7 @@
 
 ########################################################################
 
-echo "Converting training.abstracts from TSV to BC2..." && sleep 1
+echo "Converting training.abstracts.txt from TSV to BC2..." && sleep 1
 rm "./chemdner/training.abstracts.bc2"
 while IFS=$'\t' read -r field1 field2 field3; do
     echo $field1
@@ -12,7 +12,7 @@ done < ./chemdner/training.abstracts.txt
 
 ########################################################################
 
-echo "Converting training.annotations from TSV to BC2..." && sleep 1
+echo "Converting training.annotations.txt from TSV to BC2..." && sleep 1
 rm "./chemdner/training.annotations.bc2"
 while IFS=$'\t' read -r field1 field2 field3 field4 field5 field6; do
     echo $field1
@@ -21,7 +21,7 @@ done < ./chemdner/training.annotations.txt
 
 ########################################################################
 
-echo "Splitting development.abstracts from TSV to multiple RAW files..." && sleep 1
+echo "Splitting development.abstracts.txt from TSV to multiple RAW files..." && sleep 1
 rm -rf "./chemdner/annotate/in/" && mkdir -p "./chemdner/annotate/in/"
 while IFS=$'\t' read -r field1 field2 field3; do
     echo $field1
@@ -31,7 +31,7 @@ done < ./chemdner/development.abstracts.txt
 
 ########################################################################
 
-echo "Converting development.annotations into predictions..." && sleep 1
+echo "Converting development.annotations.txt into prediction-format..." && sleep 1
 rm "./chemdner/development.predictions.txt"
 while IFS=$'\t' read -r field1 field2 field3 field4 field5 field6; do
     echo $field1
