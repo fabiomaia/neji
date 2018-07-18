@@ -1,7 +1,7 @@
 #! /bin/bash
 
-echo "Preparing real annotations into the expected format..." && sleep 1
 rm "./chemdner_corpus/development.predictions.txt"
+echo "Preparing real annotations into the expected format..." && sleep 1
 while IFS=$'\t' read -r field1 field2 field3 field4 field5 field6; do
     echo $field1
     echo -e "$field1\t$field2:$field3:$field4" >> "./chemdner_corpus/development.predictions.txt"
