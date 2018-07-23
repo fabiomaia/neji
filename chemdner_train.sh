@@ -10,7 +10,7 @@ done < ./chemdner_corpus/training.abstracts.txt
 
 while IFS=$'\t' read -r field1 field2 field3 field4 field5 field6; do
     echo $field1
-    echo -e "TX\t$field6\t$field3 $field4\t$field5" >> "./chemdner_corpus/train/$field1$field2.a1"
+    echo -e "TX\tCHEM\t$field3 $field4\t$field5" >> "./chemdner_corpus/train/$field1$field2.a1"
 done < ./chemdner_corpus/training.annotations.txt
 
 sed -i "s/NO CLASS/NOCLASS/g" ./chemdner_corpus/train/*.a1
