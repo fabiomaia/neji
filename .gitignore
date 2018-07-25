@@ -1,6 +1,7 @@
 chemdner_corpus/
+chemdner_results/
+chemdner_models/
 chemdner_corpus.tar.gz
-enumerated_suffix_prefix/
 
 #intellij
 .idea
