@@ -6,26 +6,23 @@ if [ -z $model_version ]; then
     exit
 fi
 
-rm -rf "./chemdner_corpus/annotate/in/" && mkdir -p "./chemdner_corpus/annotate/in/"
+rm -rf "./chemdner_corpus/annotate/in/"; mkdir -p "./chemdner_corpus/annotate/in/"
 echo "[$model_version] Preparing annotation input..." && sleep 1
 while IFS=$'\t' read -r field1 field2 field3; do
-    echo "$field1"
     echo -e "$field2" > "./chemdner_corpus/annotate/in/"$field1"T.txt"
     echo -e "$field3" > "./chemdner_corpus/annotate/in/"$field1"A.txt"
 done < ./chemdner_corpus/development.abstracts.txt
 
-rm -rf "./chemdner_corpus/annotate/out/" && mkdir -p "./chemdner_corpus/annotate/out/"
+rm -rf "./chemdner_corpus/annotate/out/"; mkdir -p "./chemdner_corpus/annotate/out/"
 echo "[$model_version] Annotating..." && sleep 1
-./neji.sh -i chemdner_corpus/annotate/in/ -if RAW \
-          -o chemdner_corpus/annotate/out/ -of A1 \
-          -m enumerated_suffix_prefix/ \
-          -v \
+./neji.sh -i ./chemdner_corpus/annotate/in/ -if RAW \
+          -o ./chemdner_corpus/annotate/out/ -of A1 \
+          -m ./chemdner_models/$model_version/ \
           -noids
 
 rm "./chemdner_corpus/predictions_$model_version.txt"
 echo "[$model_version] Building single prediction file..." && sleep 1
 for filename in $(find ./chemdner_corpus/annotate/out/ -type f -not -empty); do
-    echo $filename
     id=$(basename $filename | cut -d'.' -f1 | head -c -2)
     sentence_type=${filename: -4 : 1}
 
