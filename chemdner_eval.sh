@@ -13,5 +13,6 @@ while IFS=$'\t' read -r field1 field2 field3 field4 field5 field6; do
     echo -e "$field1\t$field2:$field3:$field4" >> "./chemdner_corpus/development.predictions.txt"
 done < ./chemdner_corpus/development.annotations.txt
 
+rm "./chemdner_results/$model_version.txt" && mkdir -p ./chemdner_results
 echo "[$model_version] Evaluating..." && sleep 1
-bc-evaluate -l "./chemdner_corpus/predictions_$model_version.txt" "./chemdner_corpus/development.predictions.txt"
+bc-evaluate -l "./chemdner_corpus/predictions_$model_version.txt" "./chemdner_corpus/development.predictions.txt" > "./chemdner_results/$model_version.txt"
