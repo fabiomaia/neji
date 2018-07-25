@@ -116,7 +116,7 @@ public class TestTrainer extends TestCase {
         
         InputStream input = new ByteArrayInputStream(" ".getBytes("UTF-8"));
         ModelConfig config = new ModelConfig(true, false, true, true, true, false, true, true, true, true,
-                true, true, true, true, true, true, false, true, true, true, true, false, 2, Constants.Parsing.BW, new ArrayList<String>());
+                true, true, true, true, true, true, false, true, true, true, true, true, false, 2, Constants.Parsing.BW, new ArrayList<String>());
         
         p2.add(new DefaultTrainer(config)).
                 run(input);

@@ -123,8 +123,13 @@ public class CRFModel extends CRFBase {
 
         try {
             pipe.add(new Input2TokenSequence(getConfig()));
+
             if (config.isPrge()) {
                 pipe.add(new TrieLexiconMembership("PRGE", new InputStreamReader(Resources.getResource("prge")), true));
+            }
+
+            if (config.isChem()) {
+                pipe.add(new TrieLexiconMembership("CHEM", new InputStreamReader(Resources.getResource("chemicals")), true));
             }
 
             if (config.isVerbs()) {
@@ -196,7 +201,6 @@ public class CRFModel extends CRFBase {
             if (config.isEnumSuffix()) {
                 // Obtain list of suffixes
                 List<String> suffixes = IOUtils.readLines(Resources.getResource("suffixes"), "UTF-8");
-
 
                 // Escape characters with regex meaning
                 suffixes = suffixes.stream().map(s -> s.replace("-", "\\-")).collect(Collectors.toList());

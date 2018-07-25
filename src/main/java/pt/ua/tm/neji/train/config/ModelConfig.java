@@ -61,6 +61,7 @@ public class ModelConfig implements Serializable {
     private boolean roman;
     private boolean morphology;
     private boolean prge;
+    private boolean chem;
     private boolean concepts;
     private boolean verbs;
     private boolean window;
@@ -82,7 +83,7 @@ public class ModelConfig implements Serializable {
     public ModelConfig(boolean token, boolean stem, boolean lemma, boolean pos,
                        boolean chunk, boolean nlp, boolean capitalization, boolean counting,
                        boolean symbols, boolean ngrams, boolean suffix, boolean prefix, boolean enumsuffix, boolean enumprefix,
-                       boolean greek, boolean roman, boolean morphology, boolean prge,
+                       boolean greek, boolean roman, boolean morphology, boolean prge, boolean chem,
                        boolean concepts, boolean verbs, boolean window, boolean conjunctions,
                        int order, Parsing parsingDirection, List<String> entity) {
         this.token = token;
@@ -103,6 +104,7 @@ public class ModelConfig implements Serializable {
         this.roman = roman;
         this.morphology = morphology;
         this.prge = prge;
+        this.chem = chem;
         this.concepts = concepts;
         this.verbs = verbs;
         this.window = window;
@@ -188,6 +190,10 @@ public class ModelConfig implements Serializable {
             output.write((prge ? "1" : "0").getBytes());
             output.write("\n".getBytes());
 
+            output.write("chem=".getBytes());
+            output.write((chem? "1" : "0").getBytes());
+            output.write("\n".getBytes());
+
             output.write("concepts=".getBytes());
             output.write((concepts ? "1" : "0").getBytes());
             output.write("\n".getBytes());
@@ -207,11 +213,11 @@ public class ModelConfig implements Serializable {
             output.write("order=".getBytes());
             output.write(("" + order).getBytes());
             output.write("\n".getBytes());
-            
+
             output.write("parsing=".getBytes());
             output.write(("" + parsing.name()).getBytes());
             output.write("\n".getBytes());
-            
+
             output.write("entity=".getBytes());
             output.write(("" + entityToString()).getBytes());
             output.write("\n".getBytes());
@@ -252,6 +258,7 @@ public class ModelConfig implements Serializable {
                 roman = String2Boolean(properties.getProperty("roman"));
                 morphology = String2Boolean(properties.getProperty("morphology"));
                 prge = String2Boolean(properties.getProperty("prge"));
+                chem = String2Boolean(properties.getProperty("chem"));
                 concepts = String2Boolean(properties.getProperty("concepts"));
                 verbs = String2Boolean(properties.getProperty("verbs"));
                 window = String2Boolean(properties.getProperty("window"));
@@ -292,6 +299,7 @@ public class ModelConfig implements Serializable {
         logger.info("Roman: {}", roman);
         logger.info("Word Shape: {}", morphology);
         logger.info("PRGE: {}", prge);
+        logger.info("Chem: {}", chem);
         logger.info("Biomedical Concepts: {}", concepts);
         logger.info("Verbs: {}", verbs);
         logger.info("Window: {}", window);
@@ -437,6 +445,14 @@ public class ModelConfig implements Serializable {
 
     public void setPrge(boolean prge) {
         this.prge = prge;
+    }
+
+    public boolean isChem() {
+        return chem;
+    }
+
+    public void setChem(boolean chem) {
+        this.chem= chem;
     }
 
     public boolean isRoman() {
@@ -594,6 +610,10 @@ public class ModelConfig implements Serializable {
         
         sb.append("prge=");
         sb.append(prge);
+        sb.append("\n");
+        
+        sb.append("chem=");
+        sb.append(chem);
         sb.append("\n");
         
         sb.append("concepts=");
