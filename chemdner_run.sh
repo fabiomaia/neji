@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-model_versions=( "v9" )
+model_versions=( "v0" "v1" "v2" "v3" "v4" "v5" "v6" "v7" "v8" "v9" )
 
 for v in "${model_versions[@]}"
 do

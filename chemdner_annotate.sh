@@ -29,7 +29,7 @@ for filename in $(find ./chemdner_corpus/annotate/out/ -type f -not -empty); do
     while IFS=$'\t' read -r field1 field2 field3; do
         startidx=$(echo $field2 | cut -d " " -f2)
         endidx=$(echo $field2 | cut -d " " -f3)
-        echo -e "$id\t$sentence_type:$startidx:$endidx" >> "./chemdner_corpus/predictions_$model_version.txt"
+        echo -e "$id\t$sentence_type:$startidx:$endidx" >> "./chemdner_results/predictions_$model_version.txt"
         read
     done < "$filename"
 done
