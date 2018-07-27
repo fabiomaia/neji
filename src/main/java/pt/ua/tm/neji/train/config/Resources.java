@@ -114,6 +114,9 @@ public class Resources {
         loadProperties();
         logger.info("RESOURCES:");
         logger.info("PRGE: {}", properties.getProperty("prge"));
+        logger.info("Chemicals: {}", properties.getProperty("chemicals"));
+        logger.info("Suffixes: {}", properties.getProperty("suffixes"));
+        logger.info("Prefixes: {}", properties.getProperty("prefixes"));
         logger.info("Aminoacid: {}", properties.getProperty("aminoacid"));
         logger.info("Nucleicacid: {}", properties.getProperty("nucleicacid"));
         logger.info("Nucleotide: {}", properties.getProperty("nucleotide"));
